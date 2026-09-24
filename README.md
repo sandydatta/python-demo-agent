@@ -73,6 +73,43 @@ agents-cli playground
 
 ---
 
+## 📄 PDF Upload & Pinecone RAG API
+
+This project includes a complete PDF ingestion, embedding, and semantic search RAG pipeline.
+
+### Features
+1. **PDF Parsing**: Extracts page-by-page text chunks and embedded images using `pypdf` and `Pillow`.
+2. **Separate Vector Embeddings**: Text chunks and extracted images are embedded separately into 384-dimensional vector representations.
+3. **Pinecone Vector Store**: Vectors are upserted into Pinecone with rich metadata (`content_type`, `page_number`, `filename`). Falls back to an in-memory vector store for offline/local execution.
+4. **RAG Semantic Search & LLM**: Performs similarity search across Pinecone, builds structured context, and queries the LLM to generate an answer.
+
+### API Endpoints
+
+#### 1. Upload PDF (`POST /api/v1/pdf/upload`)
+Uploads a PDF file, parses text and images, embeds them separately, and indexes vectors into Pinecone.
+
+```bash
+curl -X POST -F "file=@sample_document.pdf" http://localhost:8000/api/v1/pdf/upload
+```
+
+#### 2. Semantic Query & RAG (`POST /api/v1/pdf/query`)
+Queries Pinecone for top matching text and image embeddings and generates an LLM response.
+
+```bash
+curl -X POST http://localhost:8000/api/v1/pdf/query \
+  -H "Content-Type: application/json" \
+  -d '{"query": "Summarize the key information in the uploaded PDF", "top_k": 3}'
+```
+
+#### 3. Vector Stats (`GET /api/v1/pdf/stats`)
+Returns current vector storage stats and Pinecone connection status.
+
+```bash
+curl http://localhost:8000/api/v1/pdf/stats
+```
+
+---
+
 ## 📚 Complete Function Reference
 
 Below is a detailed description of every module and function included in this repository.
