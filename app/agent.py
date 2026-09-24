@@ -18,6 +18,7 @@ from google.adk.models import Gemini
 from google.genai import types
 
 from app.tools import (
+    chroma_pdf_rag_search_tool,
     demo_ai_libraries_tool,
     demo_ml_libraries_tool,
     demo_python_features_tool,
@@ -32,12 +33,13 @@ root_agent = Agent(
     ),
     instruction="""You are a helpful Python and AI ecosystem assistant.
 You can execute demonstrations of standard Python features (collections, itertools, functools, typing, dataclasses, asyncio, concurrent.futures, pathlib, logging, json),
-ML libraries (PyTorch, Scikit-Learn, NumPy, Matplotlib, Pandas), AI agent libraries (LangChain, LangGraph, LlamaIndex, ChromaDB, Pinecone, Sentence-Transformers, PEFT), and PDF RAG semantic search.""",
+ML libraries (PyTorch, Scikit-Learn, NumPy, Matplotlib, Pandas), AI agent libraries (LangChain, LangGraph, LlamaIndex, ChromaDB, Pinecone, Sentence-Transformers, PEFT), and PDF RAG semantic search (Pinecone & ChromaDB).""",
     tools=[
         demo_python_features_tool,
         demo_ml_libraries_tool,
         demo_ai_libraries_tool,
         pdf_rag_search_tool,
+        chroma_pdf_rag_search_tool,
     ],
 )
 

@@ -110,6 +110,37 @@ curl http://localhost:8000/api/v1/pdf/stats
 
 ---
 
+## 🟣 ChromaDB PDF Upload & RAG API
+
+A parallel PDF ingestion and semantic search RAG API using **ChromaDB** as the vector database.
+
+### API Endpoints
+
+#### 1. Upload PDF to ChromaDB (`POST /api/v1/chroma/upload`)
+Uploads a PDF file, parses text and images page-by-page, generates 384-dimensional vector embeddings separately, and indexes them into ChromaDB.
+
+```bash
+curl -X POST -F "file=@sample_document.pdf" http://localhost:8000/api/v1/chroma/upload
+```
+
+#### 2. ChromaDB Semantic Query & RAG (`POST /api/v1/chroma/query`)
+Queries ChromaDB for top matching text and image embeddings and generates an LLM response.
+
+```bash
+curl -X POST http://localhost:8000/api/v1/chroma/query \
+  -H "Content-Type: application/json" \
+  -d '{"query": "Summarize key information from ChromaDB", "top_k": 3}'
+```
+
+#### 3. ChromaDB Vector Stats (`GET /api/v1/chroma/stats`)
+Returns current collection stats and vector count in ChromaDB.
+
+```bash
+curl http://localhost:8000/api/v1/chroma/stats
+```
+
+---
+
 ## 📚 Complete Function Reference
 
 Below is a detailed description of every module and function included in this repository.

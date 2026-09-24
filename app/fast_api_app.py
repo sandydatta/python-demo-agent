@@ -74,10 +74,12 @@ app: FastAPI = get_fast_api_app(
     lifespan=lifespan,
 )
 from app.pdf_rag_routes import router as pdf_rag_router
+from app.chroma_rag_routes import router as chroma_rag_router
 
 app.title = "python-demo-agent"
 app.description = "API for interacting with the Agent python-demo-agent"
 app.include_router(pdf_rag_router)
+app.include_router(chroma_rag_router)
 
 
 @app.post("/feedback")

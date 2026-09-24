@@ -33,3 +33,15 @@ def pdf_rag_search_tool(query: str, top_k: int = 3) -> Dict[str, Any]:
     from app.pinecone_rag_service import get_pinecone_rag_service
     service = get_pinecone_rag_service()
     return service.generate_rag_answer(query=query, top_k=top_k)
+
+
+def chroma_pdf_rag_search_tool(query: str, top_k: int = 3) -> Dict[str, Any]:
+    """Performs semantic search against ChromaDB PDF embeddings and generates an LLM RAG answer.
+
+    Args:
+        query: The user prompt or question to search in indexed PDFs stored in ChromaDB.
+        top_k: Number of relevant vector chunks to retrieve.
+    """
+    from app.chroma_rag_service import get_chroma_rag_service
+    service = get_chroma_rag_service()
+    return service.generate_rag_answer(query=query, top_k=top_k)
